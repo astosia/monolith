@@ -6,7 +6,6 @@
 
 //#define BACKLIGHTON   ///Use this for ShareX screencapture GIFs
 
-
 static Window *s_window;
 static Layer *s_time_layer;
 static Layer *s_battery_layer;
@@ -25,12 +24,6 @@ static char s_minute_buffer[3];
 static ClaySettings settings;
 
 typedef struct {
-  // int HourPositionX;  
-  // int HourPositionY;
-  // int MinutePositionX;
-  // int MinutePositionY;
-  // int HourSize;
-  // int MinuteSize;
   GRect BTIconRect[1];
   GRect QTIconRect[1];
   GRect BatteryLineRect[1];
@@ -38,48 +31,24 @@ typedef struct {
 
 #ifdef PBL_PLATFORM_EMERY
 static const UIConfig config = {
-  // .HourPositionX = 30,
-  // .HourPositionY = 10,
-  // .MinutePositionX = 30,
-  // .MinutePositionY = 90,
-  // .HourSize = 30,
-  // .MinuteSize = 30,
   .BTIconRect = {{{200-40,2}, {20, 20}}},
   .QTIconRect = {{{200-20, 2}, {20, 20}}},
   .BatteryLineRect = {{{0, 224}, {200, 4}}}
 };
 #elif defined(PBL_PLATFORM_GABBRO)
 static const UIConfig config = {
-  // .HourPositionX = 30,
-  // .HourPositionY = 10,
-  // .MinutePositionX = 30,
-  // .MinutePositionY = 90,
-  // .HourSize = 30,
-  // .MinuteSize = 30,
   .BTIconRect = {{{130-20, 2}, {20, 20}}},
   .QTIconRect = {{{130, 2}, {20, 20}}},
   .BatteryLineRect = {{{0, 260*0.92}, {124, 3}}}
 };
 #elif defined(PBL_PLATFORM_CHALK)
 static const UIConfig config = {
-  // .HourPositionX = 30,
-  // .HourPositionY = 10,
-  // .MinutePositionX = 30,
-  // .MinutePositionY = 90,
-  // .HourSize = 30,
-  // .MinuteSize = 30,
   .BTIconRect = {{{90-20, 0}, {20, 20}}},
   .QTIconRect = {{{90, 0}, {20, 20}}},
   .BatteryLineRect = {{{0, 180*0.94}, {86, 2}}}
 };
 #else
 static const UIConfig config = {
-  // .HourPositionX = 30,
-  // .HourPositionY = 10,
-  // .MinutePositionX = 30,
-  // .MinutePositionY = 90,
-  // .HourSize = 30,
-  // .MinuteSize = 30,
   .BTIconRect = {{{144-40, 0}, {20, 20}}},
   .QTIconRect = {{{144-20, 0}, {20, 20}}},
   .BatteryLineRect = {{{0, 166}, {144, 3}}}
@@ -147,8 +116,6 @@ static void prv_default_settings(void) {
   snprintf(settings.ThemeSelect, sizeof(settings.ThemeSelect), "%s", "bl");
   #endif
 
-  
-  
   //snprintf(settings.DateFormat, sizeof(settings.DateFormat), "%s", "0");
   
   
@@ -160,11 +127,6 @@ static void quiet_time_icon () {
 
 }
 
-// Hidden-state only, no vibration side effect -- shared by
-// bluetooth_vibe_icon() (the connection-change callback, which does
-// vibrate) and any place that just needs to re-evaluate visibility
-// (window_load init, ShowBTQTIcons being toggled from the config page)
-// without risking an unwanted buzz.
 static void prv_update_bt_icon_visibility(bool connected) {
   layer_set_hidden(s_canvas_bt_icon_layer, !settings.ShowBTQTIcons || connected);
 }
@@ -191,8 +153,7 @@ static void prv_load_settings(void) {
 // ---------------------------------------------------------------------------
 // Time handling
 // ---------------------------------------------------------------------------
-// Hours follow the watch's live 12h/24h setting (Settings > Date &
-// Time 12h/24h on the watch)
+// Hours follow the watch's live 12h/24h setting (Settings > Date & Time 12h/24h on the watch)
 static void update_time_buffers(struct tm *tick_time) {
   int hour = tick_time->tm_hour;
 
@@ -406,8 +367,6 @@ static void update_proc(Layer *layer, GContext *ctx) {
   }
   #endif
   
- 
-  //fctx_draw_string(&fctx, "32", s_font_wide, GTextAlignmentCenter, FTextAnchorBaseline);
   fctx_end_fill(&fctx);
 
   // ---- Hours
@@ -452,7 +411,6 @@ static void update_proc(Layer *layer, GContext *ctx) {
   }
   #endif
   
-  //fctx_draw_string(&fctx, "04", s_font_wide, GTextAlignmentCenter, FTextAnchorTop);
   fctx_end_fill(&fctx);
 
   fctx_deinit_context(&fctx);
@@ -503,7 +461,7 @@ static void battery_update_proc(Layer *layer, GContext *ctx) {
     GRect bounds = layer_get_unobstructed_bounds(layer);
     GRect full_bounds = layer_get_bounds(layer);
 
-    // If neither element is enabled in config, stop.
+    // If not enabled in config, stop
     if (!settings.EnableBatteryLine) {
         return;
     }
@@ -558,6 +516,7 @@ static void prv_apply_random_layout(void) {
 static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
   update_time_buffers(tick_time);
 
+  //upate random layout elements if true in settings
   if (settings.Randomise && (settings.RandomHourLocation || settings.RandomMinuteLocation ||
       settings.RandomHourSize || settings.RandomMinuteSize ||
       settings.RandomHourFont || settings.RandomMinuteFont)) {
@@ -579,7 +538,7 @@ static void prv_inbox_received_handler(DictionaryIterator *iter, void *context) 
   Tuple *enable_battery_line_t = dict_find(iter, MESSAGE_KEY_EnableBatteryLine);
   Tuple *vibe_t = dict_find(iter, MESSAGE_KEY_VibeMode);
 
-  // Tuple *enable_date_t = dict_find(iter, MESSAGE_KEY_EnableDate);
+  //Tuple *enable_date_t = dict_find(iter, MESSAGE_KEY_EnableDate);
   //Tuple *datelang_t = dict_find(iter, MESSAGE_KEY_DateLanguage);
 
   Tuple *hourtransp_t = dict_find(iter, MESSAGE_KEY_HourTransparency);
@@ -936,8 +895,6 @@ static void prv_inbox_received_handler(DictionaryIterator *iter, void *context) 
   prv_save_settings();
 
 }
-
-
 
 // ---------------------------------------------------------------------------
 // Window lifecycle

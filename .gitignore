@@ -17,3 +17,6 @@ screenshots/
 svgfonts/
 screenshot_scripts/
 pebble-venv/
+
+# Ignore wsl zone identifiers
+*:Zone.Identifier

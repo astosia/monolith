@@ -132,6 +132,230 @@ module.exports = [
   },
   {
     "type": "section",
+//    "capabilities": [ "COLOR" ],
+    "items": [
+      {
+        "type": "heading",
+        "defaultValue": "Colours",
+        "capabilities": [ "COLOR" ]
+      },
+      {
+        "type": "heading",
+        "defaultValue": "Default Transparency = Semi-Opaque",
+        "capabilities": [ "COLOR" ],
+        "size": 5
+      },
+      {
+        "type": "heading",
+        "defaultValue": "Colours",
+        "capabilities": [ "BW" ]
+      },
+      { "type": "select",
+        "messageKey": "HourTransparency",
+        "capabilities": [ "COLOR" ],
+        "defaultValue": 30,
+        "label": "Hour Transparency",
+       // "description": "Default = Slight",
+        "options": [
+          {
+            "label": "Solid/Opaque",
+            "value": 0
+          },
+          {
+            "label": "Semi-Opaque",
+            "value": 30
+          },
+          {
+            "label": "Faint",
+            "value": 50
+          },
+          {
+            "label": "Invisible",
+            "value": 80
+          }
+        ]
+      },
+      { "type": "select",
+        "messageKey": "MinuteTransparency",
+        "capabilities": [ "COLOR" ],
+        "defaultValue": 30,
+        "label": "Minute Transparency",
+        "options": [
+          {
+            "label": "Solid/Opaque",
+            "value": 0
+          },
+          {
+            "label": "Semi-Opaque",
+            "value": 30
+          },
+          {
+            "label": "Faint",
+            "value": 50
+          },
+          {
+            "label": "Invisible",
+            "value": 80
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "messageKey": "ThemeSelect",
+        "capabilities": [ "COLOR" ],
+        "defaultValue": "bl",
+        "label": "COLOUR THEME",
+        "options": [
+          {
+            "label": "White",
+            "value": "wh"
+          },
+          {
+            "label": "Black",
+            "value": "bl"
+          },
+          {
+              "label": "Blue",
+              "value": "bu"
+          },
+          {
+              "label": "Purple",
+              "value": "pl"
+          },
+          {
+              "label": "Black & Green",
+              "value": "gr"
+          },
+          {
+            "label": "Custom Colours",
+            "value": "cu"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "messageKey": "ThemeSelect",
+        "capabilities": [ "BW" ],
+        "defaultValue": "bl",
+        "label": "COLOUR THEME",
+        "options": [
+          {
+            "label": "White",
+            "value": "wh"
+          },
+          {
+            "label": "Black",
+            "value": "bl"
+          },
+          {
+            "label": "Custom Colours",
+            "value": "cu"
+          }
+        ]
+      },
+      {
+           "type": "heading",
+           "id": "CUSTOM_COLOURS_HEADING",
+           "defaultValue": "Custom Colours"
+      },
+      {
+        "type": "color",
+        "label": "Background Colour",
+        "messageKey": "BackgroundColor",
+        "defaultValue": "000000",
+        "allowGray": true
+      },
+      {
+        "type": "color",
+        "label": "Hours Digits Colour",
+        "messageKey": "HourDigitsColor",
+        "capabilities": [ "BW" ],
+        "allowGray": true,
+        "defaultValue": "AAAAAA"
+      },
+      {
+        "type": "color",
+        "label": "Hours Digits Colour",
+        "messageKey": "HourDigitsColor",
+        "capabilities": [ "COLOR" ],
+        "defaultValue": "FFFF00"
+      },
+      {
+        "type": "color",
+        "label": "Minutes Digits Colour",
+        "messageKey": "MinuteDigitsColor",
+        "capabilities": [ "BW" ],
+        "allowGray": true,
+        "defaultValue": "FFFFFF"
+      },
+    {
+        "type": "color",
+        "label": "Minutes Digits Colour",
+        "messageKey": "MinuteDigitsColor",
+        "capabilities": [ "COLOR" ],
+        "defaultValue": "00FFFF"
+      },
+    //   {
+    //     "type": "color",
+    //     "label": "Date, Battery & Weather Text Colour",
+    //     "messageKey": "DateColor",
+    //     "defaultValue": "000000"
+    //   },
+      {
+        "type": "color",
+        "label": "Battery Line Colour",
+        "messageKey": "BatteryLineColor",
+        "capabilities": [ "BW" ],
+        "allowGray": true,
+        "defaultValue": "FFFFFF"
+      },
+      {
+        "type": "color",
+        "label": "Battery Line Colour",
+        "messageKey": "BatteryLineColor",
+        "capabilities": [ "COLOR" ],
+        "defaultValue": "AA0000"
+      },
+      {
+        "type": "color",
+        "label": "Quiet Time and Bluetooth Icon Colour",
+        "messageKey": "BTQTColor",
+        "capabilities": [ "COLOR" ],
+        "defaultValue": "55AAFF"
+      },
+      {
+        "type": "color",
+        "label": "Quiet Time and Bluetooth Icon Colour",
+        "messageKey": "BTQTColor",
+        "capabilities": [ "BW" ],
+        "allowGray": true,
+        "defaultValue": "FFFFFF"
+      }
+    ]
+  },
+  {
+        "type": "select",
+        "messageKey": "PreviewPlatformOverride",
+        "label": "Watch Model (if preview wrong)",
+        "defaultValue": "auto",
+        "options": [
+          { "label": "Auto-detect (default)", "value": "auto" },
+          { "label": "Pebble / Pebble Steel", "value": "aplite" },
+          { "label": "Pebble Time / Time Steel", "value": "basalt" },
+          { "label": "Pebble Time Round", "value": "chalk" },
+          { "label": "Pebble 2 HR/SE", "value": "diorite" },
+          { "label": "Pebble Time 2", "value": "emery" },
+          { "label": "Pebble 2 Duo", "value": "flint" },
+          { "label": "Pebble Round 2", "value": "gabbro" }
+        ]
+  },
+  {
+        "type": "text",
+        "id": "LAYOUT_PREVIEW",
+        "defaultValue": ""
+  },
+  {
+    "type": "section",
     "items": [
       {
         "type": "heading",
@@ -139,23 +363,45 @@ module.exports = [
       },
       {
         "type": "toggle",
-        "label": "Hour Digit Font",
+        "label": "Hour Font: Off = Wide, On = Narrow",
         "messageKey": "HourFontChoice",
-        "description": "Off = Wide, On = Tall",
+        // "description": "Off = Wide, On = Tall",
         "defaultValue": false
       },
       {
         "type": "toggle",
-        "label": "Minute Digit Font",
+        "label": "Minute Font: Off = Wide, On = Narrow",
         "messageKey": "MinuteFontChoice",
-        "description": "Off = Wide, On = Tall",
+        //"description": "Off = Wide, On = Tall",
         "defaultValue": false
       }, 
       { "type": "select",
         "messageKey": "HourSize",
+        "defaultValue": 1,
+        "capabilities": [ "RECT" ],
+        "label": "Hour Size, Default = Medium",
+        //"description": "Default = Small",
+        "options": [
+          {
+            "label": "Small",
+            "value": 0
+          },
+          {
+            "label": "Medium",
+            "value": 1
+          },
+          {
+            "label": "Large",
+            "value": 2
+          }
+        ]
+      },
+       { "type": "select",
+        "messageKey": "HourSize",
         "defaultValue": 0,
-        "label": "Hour Size",
-        "description": "Default = Small",
+        "capabilities": [ "ROUND" ],
+        "label": "Hour Size, Default = Small",
+        //"description": "Default = Small",
         "options": [
           {
             "label": "Small",
@@ -174,8 +420,8 @@ module.exports = [
       { "type": "select",
         "messageKey": "HourPositionX",
         "defaultValue": 0,
-        "label": "Hour Position X",
-        "description": "Default = Left",
+        "label": "Hour X, Default = Left",
+        //"description": "Default = Left",
         "options": [
           {
             "label": "Left",
@@ -194,8 +440,8 @@ module.exports = [
       { "type": "select",
         "messageKey": "HourPositionY",
         "defaultValue": 0,
-        "label": "Hour Position Y",
-        "description": "Default = Top",
+        "label": "Hour Y, Default = Top",
+       // "description": "Default = Top",
         "options": [
           {
             "label": "Top",
@@ -214,8 +460,30 @@ module.exports = [
       { "type": "select",
         "messageKey": "MinuteSize",
         "defaultValue": 2,
-        "label": "Minute Size",
-        "description": "Default = Large",
+        "capabilities": [ "RECT"],
+        "label": "Minute Size, Default = Large",
+        //"description": "Default = Large",
+        "options": [
+          {
+            "label": "Small",
+            "value": 0
+          },
+          {
+            "label": "Medium",
+            "value": 1
+          },
+          {
+            "label": "Large",
+            "value": 2
+          }
+        ]
+      },
+      { "type": "select",
+        "messageKey": "MinuteSize",
+        "defaultValue": 1,
+        "capabilities": ["ROUND"],
+        "label": "Minute Size, Default = Medium",
+        //"description": "Default = Large",
         "options": [
           {
             "label": "Small",
@@ -234,8 +502,8 @@ module.exports = [
       { "type": "select",
         "messageKey": "MinutePositionX",
         "defaultValue": 1,
-        "label": "Minute Position X",
-        "description": "Default = Centre",
+        "label": "Minute X, Default = Centre",
+        //"description": "Default = Centre",
         "options": [
           {
             "label": "Left",
@@ -254,8 +522,8 @@ module.exports = [
       { "type": "select",
         "messageKey": "MinutePositionY",
         "defaultValue": 2,
-        "label": "Minute Position Y",
-        "description": "Default = Bottom",
+        "label": "Minute Y, Default = Bottom",
+        //"description": "Default = Bottom",
         "options": [
           {
             "label": "Top",
@@ -282,9 +550,9 @@ module.exports = [
     //   },
       {
         "type": "toggle",
-        "label": "Randomise",
+        "label": "Randomise Layout",
         "messageKey": "Randomise",
-        "description": "Overrides the layout options above. Changes happen every minute",
+        "description": "Can't decide on a layout?  Randomise overrides the fixed layouts above every minute.  Turn on to see more options",
         "defaultValue": false
       },
       {
@@ -331,283 +599,17 @@ module.exports = [
       },
     ]
   },
-  {
-    "type": "submit",
-    "defaultValue": "Save"
-  },
 //   {
 //     "type": "section",
-//     "capabilities": ["NOT_PLATFORM_APLITE", "NOT_PLATFORM_BASALT", "NOT_PLATFORM_CHALK", "NOT_PLATFORM_DIORITE", "NOT_PLATFORM_FLINT"],
 //     "items": [
-//     {
-//         "type": "heading",
-//         "defaultValue": "Weather"
-//     },
-//     {
-//         "type": "toggle",
-//         "messageKey": "UseWeather",
-//         "label": "Show Weather",
-//         "description": "current & forecast temp & condition icon replaces battery value",
-//         "defaultValue": false
-//     },
-//     {
-//         "type": "select",
-//         "messageKey": "WeatherProv",
-//         "defaultValue": "ds",
-//         "label": "Weather Provider",
-//         "options": [
-//           {
-//             "label": "Open-Meteo",
-//             "value": "ds"
-//           },
-//           {
-//             "label": "OpenWeatherMap",
-//             "value": "owm"
-//           }
-//         ]
-//       },
 //       {
-//         "type": "input",
-//         "messageKey": "LocationQuery",
-//         "label": "Location",
-//         "description": "Start typing a city, place name or postcode/zipcode... Leave blank to use GPS location for weather and sunrise/sunset times. Location search data uses ©OpenStreetMap.",
-//         "attributes": {
-//           "placeholder": "e.g.: London, UK (leave blank to use GPS)"
-//         }
-//       },
-//       {
-//         "type": "input",
-//         "messageKey": "Lat",
-//         "defaultValue": ""
-//       },
-//       {
-//         "type": "input",
-//         "messageKey": "Long",
-//         "defaultValue": ""
-//       },
-//       {
-//         "type": "text",
-//         "id": "LOCATION_DEBUG",
-//         "defaultValue": ""
-//       },
-//       {
-//         "type": "input",
-//         "messageKey": "APIKEY_User",
-//         "defaultValue": "",
-//         "label": "OWM API Key",
-//         "description": "Weather data uses Open-Meteo by default which does not require an API key.  If you prefer OpenWeatherMap, you can <a href =https://home.openweathermap.org/users/sign_up/>register for a free personal API key here</a>.",
-//         "attributes": {
-//           "placeholder": "Paste OpenWeatherMap API Key here, leave blank for Open-Meteo"
-//         }
-//       },
-//       {
-//         "type": "slider",
-//         "messageKey": "UpSlider",
-//         "defaultValue": 30,
-//         "label": "Weather update frequency (minutes)",
-//         "description": "More frequent requests will drain your phone battery more quickly",
-//         "min": 15,
-//         "max": 120,
-//         "step": 15
-//       },
-//       {
-//         "type": "toggle",
-//         "messageKey": "RefreshWeatherOnLaunch",
-//         "label": "Also Refresh Weather on Relaunch",
-//         "description": "In addition to update interval above, also request fresh weather every time watchface loads. Off = keeps last known reading between relaunches",
-//         "defaultValue": false
-//       },
-//       {
-//         "type": "toggle",
-//         "messageKey": "WeatherUnit",
-//         "label": "Temperature in °C (off) or °F (on)",
-//         "defaultValue": false
-//       },
-//       {
-//         "type": "submit",
-//         "defaultValue": "Save"
+//         "type": "button",
+//         "id": "RESTORE_DEFAULTS_BUTTON",
+//         "defaultValue": "Restore to Defaults",
+//         "description": "Resets every setting back to default. Does not save until you press Save below."
 //       }
 //     ]
 //   },
-  {
-    "type": "section",
-    "capabilities": [ "COLOR" ],
-    "items": [
-      {
-        "type": "heading",
-        "defaultValue": "Colours"
-      },
-      { "type": "select",
-        "messageKey": "HourTransparency",
-        "defaultValue": 30,
-        "label": "Hour Transparency",
-        "description": "Default = Slightly Transparent",
-        "options": [
-          {
-            "label": "Opaque",
-            "value": 0
-          },
-          {
-            "label": "Slightly Transparent",
-            "value": 30
-          },
-          {
-            "label": "Very Transparent",
-            "value": 50
-          },
-          {
-            "label": "Invisible",
-            "value": 80
-          }
-        ]
-      },
-      { "type": "select",
-        "messageKey": "MinuteTransparency",
-        "defaultValue": 30,
-        "label": "Minute Transparency",
-        "description": "Default = Slightly Transparent",
-        "options": [
-          {
-            "label": "Opaque",
-            "value": 0
-          },
-          {
-            "label": "Slightly Transparent",
-            "value": 30
-          },
-          {
-            "label": "Very Transparent",
-            "value": 50
-          },
-          {
-            "label": "Invisible",
-            "value": 80
-          }
-        ]
-      },
-      {
-        "type": "radiogroup",
-        "messageKey": "ThemeSelect",
-        "capabilities": [ "COLOR" ],
-        "defaultValue": "bl",
-        "label": "COLOUR THEME SELECT",
-        "options": [
-          {
-            "label": "White Background",
-            "value": "wh"
-          },
-          {
-            "label": "Black Background",
-            "value": "bl"
-          },
-          {
-              "label": "Blue Background",
-              "value": "bu"
-          },
-          {
-              "label": "Purple Background",
-              "value": "pl"
-          },
-          {
-              "label": "Black & Green",
-              "value": "gr"
-          },
-          {
-            "label": "Custom Colours",
-            "value": "cu"
-          }
-        ]
-      },
-      {
-        "type": "radiogroup",
-        "messageKey": "ThemeSelect",
-        "capabilities": [ "BW" ],
-        "defaultValue": "bl",
-        "label": "COLOUR THEME SELECT",
-        "options": [
-          {
-            "label": "White Background",
-            "value": "wh"
-          },
-          {
-            "label": "Black Background",
-            "value": "bl"
-          },
-          {
-            "label": "Custom Colours",
-            "value": "cu"
-          }
-        ]
-      },
-      {
-           "type": "heading",
-           "defaultValue": "Custom Colours"
-      },
-      {
-        "type": "color",
-        "label": "Background Colour",
-        "messageKey": "BackgroundColor",
-        "defaultValue": "000000"
-      },
-      {
-        "type": "color",
-        "label": "Hours Digits Colour",
-        "messageKey": "HourDigitsColor",
-        "capabilities": [ "BW" ],
-        "allowGray": true,
-        "defaultValue": "555555"
-      },
-      {
-        "type": "color",
-        "label": "Hours Digits Colour",
-        "messageKey": "HourDigitsColor",
-        "capabilities": [ "COLOR" ],
-        "defaultValue": "FFFFAA"
-      },
-      {
-        "type": "color",
-        "label": "Minutes Digits Colour",
-        "messageKey": "MinuteDigitsColor",
-        "capabilities": [ "BW" ],
-        "allowGray": true,
-        "defaultValue": "000000"
-      },
-    {
-        "type": "color",
-        "label": "Minutes Digits Colour",
-        "messageKey": "MinuteDigitsColor",
-        "capabilities": [ "COLOR" ],
-        "defaultValue": "00FFFF"
-      },
-    //   {
-    //     "type": "color",
-    //     "label": "Date, Battery & Weather Text Colour",
-    //     "messageKey": "DateColor",
-    //     "defaultValue": "000000"
-    //   },
-      {
-        "type": "color",
-        "label": "Battery Line Colour",
-        "messageKey": "BatteryLineColor",
-        "capabilities": [ "BW" ],
-        "allowGray": true,
-        "defaultValue": "FFFFFF"
-      },
-      {
-        "type": "color",
-        "label": "Battery Line Colour",
-        "messageKey": "BatteryLineColor",
-        "capabilities": [ "COLOR" ],
-        "defaultValue": "FF5500"
-      },
-      {
-        "type": "color",
-        "label": "Quiet Time and Bluetooth Icon Colour",
-        "messageKey": "BTQTColor",
-        "defaultValue": "000000"
-      }
-    ]
-  },
   {
     "type": "submit",
     "defaultValue": "Save"
