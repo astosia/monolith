@@ -1,0 +1,100 @@
+{
+  "name": "monolith",
+  "author": "astosia",
+  "version": "1.1.0",
+  "keywords": ["pebble-app"],
+  "private": true,
+  "dependencies": {
+    "@rebble/clay": "^1.0.6",
+    "pebble-fctx": "^1.6.5",
+    "pebble-fctx-compiler": "^1.2.2"
+  },
+  "pebble": {
+    "displayName": "monolith",
+    "uuid": "d3e42da9-03d3-4bed-af2d-81a403fff704",
+    "sdkVersion": "3",
+    "enableMultiJS": true,
+    "targetPlatforms": [
+      "aplite",
+      "basalt",
+      "chalk",
+      "diorite",
+      "emery",
+      "flint",
+      "gabbro"
+    ],
+    "watchapp": {
+      "watchface": true
+    },
+    "messageKeys": [
+      "HourFontChoice",
+      "MinuteFontChoice",
+      "HourDigitsColor",
+      "MinuteDigitsColor",
+      "BackgroundColor",
+      "BatteryLineColor",
+      "EnableBatteryLine",
+      "VibeMode",
+      "HourTransparency",
+      "MinuteTransparency",
+      "ThemeSelect",
+      "BTQTColor",
+      "AddZero12h",
+      "RemoveZero24h",
+      "showAMPM",
+      "HourPositionX",
+      "HourPositionY",
+      "MinutePositionX",
+      "MinutePositionY",
+      "HourSize",
+      "MinuteSize",
+      "RandomHourLocation",
+      "RandomMinuteLocation",
+      "RandomHourSize",
+      "RandomMinuteSize",
+      "RandomHourFont",
+      "RandomMinuteFont",
+      "ShowBTQTIcons",
+      "Randomise"
+    ],
+    "resources": {
+      "media": [
+         {
+          "file": "data/Tandelle.ffont",
+          "name": "FONT_TANGENT",
+          "targetPlatforms": 
+          [ "aplite",
+            "diorite",
+            "flint",
+            "basalt",
+            "chalk",
+            "emery",
+            "gabbro"
+          ],
+          "type": "raw"
+        },
+         {
+          "file": "data/Johnston6.ffont",
+          "name": "FONT_JOHNSTON",
+          "targetPlatforms": 
+          [ "aplite",
+            "diorite",
+            "flint",
+            "basalt",
+            "chalk",
+            "emery",
+            "gabbro"
+          ],
+          "type": "raw"
+        },
+        {
+          "file": "fonts/dripicons-v2.ttf",
+          "characterRegex": "[z]",
+          "name": "FONT_DRIPICONS_16",
+          "targetPlatforms": null,
+          "type": "font"
+        }
+      ]
+    }
+  }
+}

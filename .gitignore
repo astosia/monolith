@@ -1,0 +1,19 @@
+# Ignore build generated files
+build/
+dist/
+dist.zip
+
+# Ignore waf lock file
+.lock-waf*
+
+# Ignore installed node modules
+node_modules/
+
+# Ignore package-lock.json
+package-lock.json
+
+# Ignore screenshots
+screenshots/
+svgfonts/
+screenshot_scripts/
+pebble-venv/
