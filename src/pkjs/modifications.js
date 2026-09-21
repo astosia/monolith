@@ -35,9 +35,8 @@ module.exports = function(minified) {
     };
 
     // -----------------------------------------------------------------
-    // Custom Colours sub-section: shows/hides the "Custom Colours"
-    // heading and its five color pickers only when ThemeSelect is set to
-    // "cu".
+    // Custom Colours sub-section: shows "Custom Colours"
+    // heading and color pickers when ThemeSelect is set to "cu"
     // -----------------------------------------------------------------
     var updateCustomColoursSectionVisibility = function() {
         var themeSelect = config.getItemByMessageKey("ThemeSelect");
@@ -67,45 +66,8 @@ module.exports = function(minified) {
     };
 
     // -----------------------------------------------------------------
-    // Restore to Defaults: CURRENTLY NOT WORKING, commented out in Config.js!
-    // resets every real setting (anything with a
-    // messageKey) back to its authored defaultValue in config.js.
-    // Deliberately skips display-only items with no messageKey (headings,
-    // the LAYOUT_PREVIEW text placeholder, this button itself, the Save
-    // submit) -- those aren't settings and have nothing meaningful to
-    // "restore".
-    //
-    // Each component's set() already fires 'change' when the value
-    // actually differs (see e.g. manipulators.js's toggle/select/color
-    // set() implementations), so this alone is enough to cascade through
-    // the existing listeners below: updateRandomSectionVisibility and
-    // updateCustomColoursSectionVisibility re-collapse once Randomise/
-    // ThemeSelect land back on their defaults, and drawPreview redraws
-    // with the reset values -- no separate refresh step needed here.
-    //
-    // This only resets the page's in-memory form state. Like any other
-    // change on this page, it isn't sent to the watch until the person
-    // presses the actual Save button, which is why the button's
-    // description says so explicitly.
-    var restoreDefaults = function() {
-        if (typeof window !== 'undefined' && window.confirm) {
-            var ok = window.confirm('Restore every setting on this page to its default? ' +
-                'This can\'t be undone once you save.');
-            if (!ok) return;
-        }
-
-        var items = config.getAllItems();
-        for (var i = 0; i < items.length; i++) {
-            var item = items[i];
-            if (item.messageKey && item.config && item.config.defaultValue !== undefined) {
-                item.set(item.config.defaultValue);
-            }
-        }
-    };
-
-    // -----------------------------------------------------------------
     // Live layout preview: draws a canvas approximating the watchface,
-    // redrawn on every relevant settings change. This mirrors the
+    // redrawn on all relevant settings changes. This mirrors the
     // geometry, font-size scaling and text-anchor logic from monolith.c
     //   - HourTransparency/MinuteTransparency: the watch blends toward
     //     black via fctx_set_color_bias (a dither-like effect), which
@@ -118,8 +80,8 @@ module.exports = function(minified) {
     var JOHNSTON_DIGITS_WOFF2_B64 = "d09GMgABAAAAAAQgAA0AAAAABwgAAAPSAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGhYbIBwqBmAANAqIGIZ9ATYCJANMCywABCAFBgcgG1wFUVQungh+JGRnQ1cBZR+T2L2z4IHes95MskqTBXUgVjkA+gLd9mAnHWDR///9Jnjk/IaJv49d1GZiTTSpRRJbyGuFWbacvfkGrKIoUE0Igz1cbbq0bk9IgpEgDLIVj3AvHUJahunlQRnvBhGADreARCDQlO9AI5xIROWqtU3cUQEsCwDCPIkkI/fz7Nqqb3eCg8FtVU4VM3EBOVk2BGqpR0VzCoo6IG0uCuddlVIFBCfrZNXNEuXJTwmlj+UKd4bfoXbxVC5ZjEYBJKgefxSERSUaKkSgxFg58luceLURC/g1IBXwBeEKYhxQFjABkBZXQCJoWG56K0hV9dbV4FDDJSrAcA3R9QBjiKunWycXXbU7HGKU02mbYrcz8sYNzekUoxza5BuMtNu6NHDVOhy35E1NHA7mZLp8QwPd7qjYYA9N8Rop3EQXRsNCxjb6vSajDGlDQ1MUbVTDF29nsiO3wcHozRvxTQxTNzfY/Hw95e40sOmK5nnbrTdpLqUNXRgDtZ7FBn2HzQz+BynsWuMKI6/WOJP1z6wR+BO2etPUnM4G92eqTp5461aDFYu+GDPGx4eJtbZUqxEjvNa/tb89bJj/R43lcmJP4HfosEDbdCIyBTczZ9ZcXLUK3M2YCf7cKojLvbOEi4R6KxIioyJrKOgYaayTJ3RvbXRPHQxqa5QNTX1L125OTutV+L9qXjA7lOmuI7ynq6KdbgWlznT2xOdhUzs9EbSxX6spoffZPs0J98btVZfmk3+9k49Ls30y/ayBFUPLkMDXd+NFWLUvBqv0Fvmd8a4K5KYLIEoy3iXNWJS/G8F3Q+Fwwrx3XSs6ZhHyr61CPrOQ9B5mTZ5kDO743jr7aGFszneJfOdZZhhl4x4IS2uSeGY8TFi9ukr3TqAfdsB7PUuFRsPb12bnwLzD2eiz+Lx9ZnvFNj/rB0V6IBvGR1c8CQelaHm54i0z4yo58TGg8GFWBYc9FQvxPqrVcdpSyE0I/hLdg3OiMaTj28eHC+Oyv2dmdQ3bZxDyra9CPnheMa4m7SPsG+sCHG9XbHa83dCtWIwJ47hCnk/JS7N4vxEWHzvku5X8Lr3nf4URDwHN+iSDlGjigQUq00g84u5csOKjOkA2HrA+y0TF1614k/jFzSG3dJP00k8AAvy2poVX6W/uUcpLgGuOmc8Anl+Z2u5//f+33bepOuCOBEDAfxDziA0yWlk7EHDv+MhgkDFo7CdevEGTsQfaIj9CocAHIeb+FDEKaaJaLVG2APWdKIrQnNKURAABNMTNCFWECytmmyvKQVhLKQgH";
     var TANDELLE_DIGITS_WOFF2_B64 = "d09GMgABAAAAAARQAA0AAAAAB2QAAAQBAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAG4JCHBoGYAA0ERAKhxyFfAE2AiQDLAsYAAQgBQYHIBvHBVGUTM5rIL46iMe4pjrPmMiqa/7K+k3QJPoVlWnwRHn//anqzr153WM6Y6/kZMAvaUWs6CVcAaBuKzVqKIb0cIOgICLzHDlHjWaO02cuc1IPjNPRPOAIO8vJTYqvUKmwUZfq7VduDeQfACu1lI4fO0zXRw5Is9KFiliAAhowzsTONW3m2S0h6O9BgEATOiEbl+3cTIoHMEMA2bBq+2ZSQADBo4CQIjTCAxV0Ygwb2ccJ7uA5vuIXFEVQwBNQSqhlb5KYlUzLJqlpBWKklry1xAIl47JxapEKQ7DiUVvevGye2lPUkFoto9a8ncS8ZLtsmhqCIQmAwyJnUBgDBKAC6DBMqetgpElLxMQQJ6uOEX+iUYd6CQ4rX8g5EtDnNAdy9dPyKT34O02UJHWgeECgF82aP20qw+hGf/3ENvV2R3gVEAAt65tAMxRQwAG1cAhJnmbwkIX+ZkA3I/c9YYcjRamG2McBKcKBOkANkIEgy4BUC0YUReBM5RKHeh9CaNvDx6b1K6ctqgR5Xkwq++WVk0pZgT8QckkOzs7RA7EQd3BuTIJEHwlzCXLw0Y73PvvsgyIHrwn5XRjvisVHcOChenc99dx9ECU7GHLfzlsffDYWT99/Mxz4sNXt91+vL4RcJHLgbvrGa0UOPhKCxELmujBvVhY1EggSMoKEKWbdiy6e4N41Ia8XU1g6OQcB6cs8dAdjUbFxz7yekugyK0JlCWlWnNx/fRNGu9vv9h689cZ7225/PHHjg8/On9x9iQfpAwsmAcxOJOiS3hXyV2TMLtoOu7B5T6i4u07Dx7avqz79Q/Z9tHMTdPOO0789Rax4a9fqx6VJcp00taVHm7oF+PmPvninW3uwO9mpUpan/aleHdF5Q2rLVIPLGo2pUUnuSg2bkTcGRwE3LlYLBOryrBDXlv/aqcPv3J7MHDExtOxNmycJ4qfbe6eL07K0Dgbrv8MMg41nSrYJTIDT313TiDw/iy0CPPxtu2mK2amzI/zs4ynHffB3H29T0H9T7GyeHpvSq3WQCHnag8Ea0bnFZew5RvzpfNsMmWFn0OGpHc1Tt6e2NU5lpyVqFZjG1SnSrc4KIpGh3ekJ+M2qN2Zk3ZGxlCeOftTqkfPXNwyIiaH73ded1BG2Tg8eObVbSDu5bvd99RHiAHt5213LlQKvcaDzSgNWg2qgm49PF6hrTQKRqVYNODiK+NP56briulSZVoYeHPYsuWKlHgCi3d/0zW0Bf0AeK9D3GlpkVQf9ljZ1PwC8sOaF3QDfvfdrL7vbuObuWiBFARBwRwwNXd8AcmCsYnPUZtTBqMRnNFW3SolUAhUC0TQqRKmCvxLeBZGtlBmMT5fpUkq4pbArGA8A";
 
-    // Real dripicons: 'z' (glyph name "bluetooth") for the BT
-    // icon and U+E061 (glyph name "volume-off", used as the mute-style
+    // Dripicons: 'z' (glyph name "bluetooth") for the BT icon and 
+    // U+E061 (glyph name "volume-off", used as the mute-style
     // icon for quiet time) for the QT icon
     var DRIPICONS_ICONS_WOFF2_B64 = "d09GMgABAAAAAAH4AAwAAAAAA3AAAAGsAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGhYGVgA8EQgKgjyCJQE2AiQDCAsIAAQgBQYHIBt8AgCOwziGvERM5UNTYjMien6szb5/oohVSyRChkTFs5Zk0jx3SPUy/v+vtft30VlMtImnFWUWMa/mcSRiUkmeoHFIdNVI22e246FNeGAz+4nudjfwLNYAoyBNu1umuQ1Rf4uwdUwwAUSUiBTyg65BNKwd7OdbM4HeoHSHAMgCAA7ay1uxi5v7JnZP90grhiCAQsOKJmA6ttFzUb9BBExaWN+IiuSfUKCBHnq4BvcAVgBN22pKv1HIlVX24yUfAc6kGCGwwiL4iiv+Vjz5iirOylN+1UYDclgj+Vi4ZQGeRJWqYj+QmXKqkpc4jh23TaKPwC378RYHaQZeRfZ8K6yyr+hjiaDLZhuNjB9e/bkf6bS/br/37a1tbUQVXm063ZH7baYdx4+O814V/b5/v28Tv7h7uzzu7st1vna+AHLbVZ5TGp89dj2SHzXadi7hJ8F5Xq2NvSMSe87thcVi844OIlFRif+R2930Ftnor7gE58At5J3ZeFrLJ3sHQ3i/2ftvcM+bOakUgF+ftVVvVDYUTMHAQIFQIcJO4YLQ88MUcItFQYuXKQionkYK";
 
@@ -195,7 +157,7 @@ module.exports = function(minified) {
         return corrected ? ('#' + corrected) : hex;
     };
 
-    // Hardcoded per-theme GColors from monolith.c's ThemeSelect branches
+    // Hardcoded per-theme GColors from monolith.c ThemeSelect branches
     // (prv_inbox_received_handler) -- these values exist only in the C
     // code, nowhere in the JS settings, so a preview has to duplicate
     // them to show what a non-"cu" theme will actually look like.
@@ -217,8 +179,7 @@ module.exports = function(minified) {
     // Platform detection for the preview, with a manual escape hatch.
     // Pebble.getActiveWatchInfo().platform is meant to auto-detect the
     // connected watch, but this isn't working.  
-    // Rather than depend on that detection working, "PreviewPlatformOverride"
-    // in config.js lets the user select which watch they have.
+    // "PreviewPlatformOverride" instead lets the user select which watch they have.
     // -----------------------------------------------------------------
     var getPlatformInfo = function() {
         var overrideItem = config.getItemByMessageKey("PreviewPlatformOverride");
@@ -291,56 +252,71 @@ module.exports = function(minified) {
         return !!item.get();
     };
 
-    var previewCanvas = null;
-    var previewCtx = null;
+    // Multiple preview instances since sticky isn't available
+    // Add more ids to PREVIEW_ANCHOR_IDS (and a matching "text" item with that "id" in
+    // config.js) for further instances if needed.
+    var PREVIEW_ANCHOR_IDS = ["LAYOUT_PREVIEW", "LAYOUT_PREVIEW_2"];
+    var previewInstances = []; // [{ id, canvas, ctx }, ...]
 
-    var ensurePreviewCanvas = function() {
-        if (previewCanvas) return true;
+    var ensurePreviewCanvases = function() {
+        for (var i = 0; i < PREVIEW_ANCHOR_IDS.length; i++) {
+            var id = PREVIEW_ANCHOR_IDS[i];
 
-        var container = document.getElementById("LAYOUT_PREVIEW");
+            var alreadyBuilt = false;
+            for (var j = 0; j < previewInstances.length; j++) {
+                if (previewInstances[j].id === id) { alreadyBuilt = true; break; }
+            }
+            if (alreadyBuilt) continue;
 
-        if (!container) {
-            var anchor = config.getItemById("LAYOUT_PREVIEW");
+            // The "text" component's own template
+            // (templates/components/text.tpl) never binds {{id}} onto any
+            // element -- a plain "text" item's id is a JS-side ClayItem
+            // property only, never a real HTML id attribute -- so
+            // document.getElementById(id) can never find one of these and
+            // isn't worth trying. This goes via config.getItemById()'s
+            // $manipulatorTarget instead: the inner
+            // <p data-manipulator-target> the text component actually
+            // renders, not its outer wrapping <div class="component
+            // component-text">.
+            var container = null;
+            var anchor = config.getItemById(id);
             if (anchor && anchor.$manipulatorTarget) {
                 container = anchor.$manipulatorTarget[0] || anchor.$manipulatorTarget;
             }
+
+            if (!container || !container.parentNode) {
+                console.error(id + " anchor not found in the built page -- that preview canvas was not inserted.");
+                continue;
+            }
+
+            var wrapper = document.createElement('div');
+            wrapper.style.display = 'flex';
+            wrapper.style.justifyContent = 'center';
+            wrapper.style.padding = '12px 0';
+
+            var canvas = document.createElement('canvas');
+            canvas.style.maxWidth = '200px';
+            canvas.style.width = '100%';
+            canvas.style.height = 'auto';
+            canvas.style.border = '1px solid #888';
+            canvas.style.borderRadius = '4px';
+
+            wrapper.appendChild(canvas);
+            container.parentNode.replaceChild(wrapper, container);
+
+            previewInstances.push({ id: id, canvas: canvas, ctx: canvas.getContext('2d') });
         }
 
-        if (!container || !container.parentNode) {
-            console.error("LAYOUT_PREVIEW anchor not found in the built page -- live preview canvas was not inserted.");
-            return false;
-        }
-
-        var wrapper = document.createElement('div');
-        wrapper.style.display = 'flex';
-        wrapper.style.justifyContent = 'center';
-        wrapper.style.padding = '12px 0';
-
-        var canvas = document.createElement('canvas');
-        canvas.style.maxWidth = '200px';
-        canvas.style.width = '100%';
-        canvas.style.height = 'auto';
-        canvas.style.border = '1px solid #888';
-        canvas.style.borderRadius = '4px';
-
-        wrapper.appendChild(canvas);
-        container.parentNode.replaceChild(wrapper, container);
-
-        previewCanvas = canvas;
-        previewCtx = canvas.getContext('2d');
-        return true;
+        return previewInstances.length > 0;
     };
 
     var drawPreview = function() {
-        if (!ensurePreviewCanvas()) return;
+        if (!ensurePreviewCanvases()) return;
 
         var screen = getPlatformInfo();
         var w = screen.w;
         var h = screen.h;
-        previewCanvas.width = w;
-        previewCanvas.height = h;
 
-        var ctx = previewCtx;
         var palette = screen.bw ? THEME_COLORS.bw : THEME_COLORS.color;
 
         var theme = getVal("ThemeSelect", "bl");
@@ -369,16 +345,6 @@ module.exports = function(minified) {
         batteryColor = applySunlightCorrection(batteryColor);
         btqtColor = applySunlightCorrection(btqtColor);
 
-        // ---- Background (clipped to a circle on round platforms) ----
-        ctx.save();
-        if (screen.round) {
-            ctx.beginPath();
-            ctx.arc(w / 2, h / 2, Math.min(w, h) / 2, 0, Math.PI * 2);
-            ctx.clip();
-        }
-        ctx.fillStyle = bg;
-        ctx.fillRect(0, 0, w, h);
-
         // ---- Hour / Minute digits ----
         var hourTall = getBoolVal("HourFontChoice", false);
         var minuteTall = getBoolVal("MinuteFontChoice", false);
@@ -391,15 +357,15 @@ module.exports = function(minified) {
         var hourCap = computeCapHeight(getIntVal("HourSize", screen.round ? 0 : 1), h, screen.round);
         var minuteCap = computeCapHeight(getIntVal("MinuteSize", screen.round ? 1 : 2), h, screen.round);
 
-        // "Opaque" (0) through "Invisible" (80) is the config's full
-        // transparency range -- 80 is the maximum defined value 
+        // "Opaque" (0) through "Invisible" (80) is the full
+        // transparency range -- 80 is the maximum defined value.
         // BW platforms always render opaque regardless of this
         // setting so preview ignores HourTransparency/MinuteTransparency
         // when screen.bw is true.
         var hourOpacity = screen.bw ? 1 : (1 - getIntVal("HourTransparency", 30) / 80);
         var minuteOpacity = screen.bw ? 1 : (1 - getIntVal("MinuteTransparency", 30) / 80);
 
-        // Fixed preview time: 9:47. Real hour/minute values would make the
+        // Fixed preview time: 9:47. Real hour/minute values make the
         // preview redraw every minute for no visual reason once the
         // settings themselves are stable, and a fixed time makes it easier
         // to compare screenshots/layouts across changes. Zero-padding
@@ -410,14 +376,29 @@ module.exports = function(minified) {
         // between modes here.
         //
         // clock_is_24h_style() has no direct equivalent available to a
-        // Clay config page, so this approximates it from the browser's
-        // locale via Intl -- a reasonable proxy, not a guaranteed match
-        // for the watch's actual Date & Time format setting.
-        var is24h = false;
-        try {
-            is24h = !Intl.DateTimeFormat(undefined, { hour: 'numeric' }).resolvedOptions().hour12;
-        } catch (e) {
-            is24h = false; // Intl unavailable or threw -- default to 12-hour
+        // Clay config page. The Intl-based guess below approximates it
+        // from the WebView's locale, but that's a guess about the
+        // *phone's* locale, not the watch's actual Date & Time format
+        // setting -- the two aren't guaranteed to agree, and when they
+        // don't, AddZero12h/RemoveZero24h look broken (whichever one
+        // actually matches the watch has no visible effect on the
+        // preview, since the preview thinks it's in the other mode).
+        // PreviewTimeFormatOverride is the same escape hatch pattern as
+        // PreviewPlatformOverride above: "auto" keeps the Intl guess,
+        // otherwise the explicit choice wins outright.
+        var timeFormatOverride = getVal("PreviewTimeFormatOverride", "auto");
+        var is24h;
+        if (timeFormatOverride === "12h") {
+            is24h = false;
+        } else if (timeFormatOverride === "24h") {
+            is24h = true;
+        } else {
+            is24h = false;
+            try {
+                is24h = !Intl.DateTimeFormat(undefined, { hour: 'numeric' }).resolvedOptions().hour12;
+            } catch (e) {
+                is24h = false; // Intl unavailable or threw -- default to 12-hour
+            }
         }
 
         var FIXED_HOUR_24 = 9;
@@ -430,10 +411,19 @@ module.exports = function(minified) {
             : (FIXED_HOUR_24 < 10 ? '0' + FIXED_HOUR_24 : String(FIXED_HOUR_24));
         var minuteText = (FIXED_MINUTE < 10 ? '0' : '') + FIXED_MINUTE;
 
-        // posSetting 0/1/2 (Top/Middle/Bottom) matches Pebble's
+        var hourPosY = getIntVal("HourPositionY", 0);
+        var minutePosY = getIntVal("MinutePositionY", 2);
+        var showBattery = getBoolVal("EnableBatteryLine", true);
+        var showBtqt = getBoolVal("ShowBTQTIcons", true);
+
+        // posSetting 0/1/2 (Top/Middle/Bottom) matches fctx's
         // FTextAnchorCapTop/CapMiddle/Baseline -- all three are defined
         // relative to the glyph's cap height, not the font's em box.
-        var drawDigits = function(text, x, y, capHeightPx, tall, color, opacity, posSetting) {
+        // ctx.measureText() is per-context state, so this (and everything
+        // below it) has to run once per canvas instance, not once overall
+        // -- unlike the values above, which are the same for every canvas
+        // and are computed only once.
+        var drawDigits = function(ctx, text, x, y, capHeightPx, tall, color, opacity, posSetting) {
             ctx.save();
             ctx.globalAlpha = opacity;
             ctx.fillStyle = color;
@@ -474,66 +464,83 @@ module.exports = function(minified) {
             ctx.restore();
         };
 
-        drawDigits(minuteText, minuteX, minuteY, minuteCap, minuteTall, minuteColor, minuteOpacity, getIntVal("MinutePositionY", 2));
-        drawDigits(hourText, hourX, hourY, hourCap, hourTall, hourColor, hourOpacity, getIntVal("HourPositionY", 0));
+        var paintOneCanvas = function(instance) {
+            var canvas = instance.canvas;
+            var ctx = instance.ctx;
+            canvas.width = w;
+            canvas.height = h;
 
-        // ---- Battery line ----
-        if (getBoolVal("EnableBatteryLine", true)) {
-            var battPct = 0.65; // representative fill level -- preview only, not live battery data
-            var battH, battY, battContainerW, battFillW, battFillX;
-
-            if (screen.battYRatio !== undefined) {
-                battH = screen.battHeightPx;
-                battY = h * screen.battYRatio;
-                battContainerW = screen.battWidthPx;
-                battFillW = battContainerW * battPct;
-                battFillX = (w - battFillW) / 2;
-            } else if (screen.round) {
-                battH = Math.max(2, h * 0.018);
-                battY = h * 9 / 10 - battH;
-                battContainerW = w * 0.65;
-                battFillW = battContainerW * battPct;
-                battFillX = (w - battFillW) / 2;
-            } else {
-                battH = Math.max(2, h * 0.018);
-                battY = h - battH;
-                battContainerW = w;
-                battFillW = battContainerW * battPct;
-                battFillX = 0;
-            }
-
-            ctx.globalAlpha = 1;
-            ctx.fillStyle = batteryColor;
-            ctx.fillRect(battFillX, battY, battFillW, battH);
-        }
-
-        // ---- Bluetooth / Quiet Time icons ----
-        // Uses dripicons font
-        if (getBoolVal("ShowBTQTIcons", true)) {
-            var iconSize = w * 0.09;
-            ctx.globalAlpha = 1;
-            ctx.fillStyle = btqtColor;
-            ctx.font = Math.round(iconSize) + "px '" + PREVIEW_FONT_ICONS + "', sans-serif";
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'top';
-
+            // ---- Background (clipped to a circle on round platforms) ----
+            ctx.save();
             if (screen.round) {
-                var btqtGap = iconSize * 1.1;
-                var btqtRoundY = h * 0.00;
-                ctx.fillText('z', w / 2 - btqtGap / 2, btqtRoundY);      // bluetooth
-                ctx.fillText('\uE061', w / 2 + btqtGap / 2, btqtRoundY); // quiet time
-            } else {
-                ctx.fillText('\uE061', w * 0.90, h * 0.02); // quiet time
-                ctx.fillText('z', w * 0.80, h * 0.02);      // bluetooth
+                ctx.beginPath();
+                ctx.arc(w / 2, h / 2, Math.min(w, h) / 2, 0, Math.PI * 2);
+                ctx.clip();
             }
-        }
+            ctx.fillStyle = bg;
+            ctx.fillRect(0, 0, w, h);
 
-        ctx.restore();
+            drawDigits(ctx, minuteText, minuteX, minuteY, minuteCap, minuteTall, minuteColor, minuteOpacity, minutePosY);
+            drawDigits(ctx, hourText, hourX, hourY, hourCap, hourTall, hourColor, hourOpacity, hourPosY);
 
-        if (screen.round) {
-            previewCanvas.style.borderRadius = '50%';
-        } else {
-            previewCanvas.style.borderRadius = '4px';
+            // ---- Battery line ----
+            if (showBattery) {
+                var battPct = 0.65; // representative fill level -- preview only, not live battery data
+                var battH, battY, battContainerW, battFillW, battFillX;
+
+                if (screen.battYRatio !== undefined) {
+                    battH = screen.battHeightPx;
+                    battY = h * screen.battYRatio;
+                    battContainerW = screen.battWidthPx;
+                    battFillW = battContainerW * battPct;
+                    battFillX = (w - battFillW) / 2;
+                } else if (screen.round) {
+                    battH = Math.max(2, h * 0.018);
+                    battY = h * 9 / 10 - battH;
+                    battContainerW = w * 0.65;
+                    battFillW = battContainerW * battPct;
+                    battFillX = (w - battFillW) / 2;
+                } else {
+                    battH = Math.max(2, h * 0.018);
+                    battY = h - battH;
+                    battContainerW = w;
+                    battFillW = battContainerW * battPct;
+                    battFillX = 0;
+                }
+
+                ctx.globalAlpha = 1;
+                ctx.fillStyle = batteryColor;
+                ctx.fillRect(battFillX, battY, battFillW, battH);
+            }
+
+            // ---- Bluetooth / Quiet Time icons ----
+            // Uses dripicons font
+            if (showBtqt) {
+                var iconSize = w * 0.09;
+                ctx.globalAlpha = 1;
+                ctx.fillStyle = btqtColor;
+                ctx.font = Math.round(iconSize) + "px '" + PREVIEW_FONT_ICONS + "', sans-serif";
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'top';
+
+                if (screen.round) {
+                    var btqtGap = iconSize * 1.1;
+                    var btqtRoundY = h * 0.00;
+                    ctx.fillText('z', w / 2 - btqtGap / 2, btqtRoundY);      // bluetooth
+                    ctx.fillText('\uE061', w / 2 + btqtGap / 2, btqtRoundY); // quiet time
+                } else {
+                    ctx.fillText('\uE061', w * 0.90, h * 0.02); // quiet time
+                    ctx.fillText('z', w * 0.80, h * 0.02);      // bluetooth
+                }
+            }
+
+            ctx.restore();
+
+            canvas.style.borderRadius = screen.round ? '50%' : '4px';
+        };
+
+        for (var k = 0; k < previewInstances.length; k++) {
+            paintOneCanvas(previewInstances[k]);
         }
     };
 
@@ -546,7 +553,7 @@ module.exports = function(minified) {
         "ThemeSelect", "BackgroundColor", "HourDigitsColor", "MinuteDigitsColor",
         "BatteryLineColor", "BTQTColor", "HourTransparency", "MinuteTransparency",
         "EnableBatteryLine", "ShowBTQTIcons", "AddZero12h", "RemoveZero24h",
-        "PreviewPlatformOverride"
+        "PreviewPlatformOverride", "PreviewTimeFormatOverride"
     ];
 
     config.on(config.EVENTS.AFTER_BUILD, function () {

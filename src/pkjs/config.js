@@ -8,6 +8,39 @@ module.exports = [
     "defaultValue": "<p>by astosia</p>"
   },
   {
+        "type": "select",
+        "messageKey": "PreviewPlatformOverride",
+        "label": "Watch Model<br>(if preview wrong)",
+        "defaultValue": "auto",
+        "options": [
+          { "label": "Auto-detect", "value": "auto" },
+          { "label": "Pebble / Pebble Steel", "value": "aplite" },
+          { "label": "Pebble Time / Time Steel", "value": "basalt" },
+          { "label": "Pebble Time Round", "value": "chalk" },
+          { "label": "Pebble 2 HR/SE", "value": "diorite" },
+          { "label": "Pebble Time 2", "value": "emery" },
+          { "label": "Pebble 2 Duo", "value": "flint" },
+          { "label": "Pebble Round 2", "value": "gabbro" }
+        ]
+  },
+  {
+        "type": "select",
+        "messageKey": "PreviewTimeFormatOverride",
+        "label": "12h/24h Time Preview<br>(does NOT change the watch)",
+        "description": "Format is set on watch (Settings->Date & Time)",
+        "defaultValue": "auto",
+        "options": [
+//          { "label": "Auto-detect", "value": "auto" },
+          { "label": "12-hour", "value": "12h" },
+          { "label": "24-hour", "value": "24h" }
+        ]
+  },
+  {
+        "type": "text",
+        "id": "LAYOUT_PREVIEW",
+        "defaultValue": ""
+  },
+  {
     "type": "section",
     "items": [
       {
@@ -91,7 +124,7 @@ module.exports = [
         "type": "toggle",
         "label": "Bluetooth & Quiet Time Icons visible",
         "messageKey": "ShowBTQTIcons",
-        "description": "Off hides both the Bluetooth-disconnected and Quiet Time icons whenever they'd otherwise appear.",
+        "description": "Off hides both the Bluetooth-disconnected and Quiet Time icons whenever they'd otherwise appear",
         "defaultValue": true
       },
       {
@@ -143,7 +176,7 @@ module.exports = [
         "type": "heading",
         "defaultValue": "Default Transparency = Semi-Opaque",
         "capabilities": [ "COLOR" ],
-        "size": 5
+        "size": 6
       },
       {
         "type": "heading",
@@ -158,7 +191,7 @@ module.exports = [
        // "description": "Default = Slight",
         "options": [
           {
-            "label": "Solid/Opaque",
+            "label": "Solid",
             "value": 0
           },
           {
@@ -182,7 +215,7 @@ module.exports = [
         "label": "Minute Transparency",
         "options": [
           {
-            "label": "Solid/Opaque",
+            "label": "Solid",
             "value": 0
           },
           {
@@ -334,24 +367,8 @@ module.exports = [
     ]
   },
   {
-        "type": "select",
-        "messageKey": "PreviewPlatformOverride",
-        "label": "Watch Model (if preview wrong)",
-        "defaultValue": "auto",
-        "options": [
-          { "label": "Auto-detect (default)", "value": "auto" },
-          { "label": "Pebble / Pebble Steel", "value": "aplite" },
-          { "label": "Pebble Time / Time Steel", "value": "basalt" },
-          { "label": "Pebble Time Round", "value": "chalk" },
-          { "label": "Pebble 2 HR/SE", "value": "diorite" },
-          { "label": "Pebble Time 2", "value": "emery" },
-          { "label": "Pebble 2 Duo", "value": "flint" },
-          { "label": "Pebble Round 2", "value": "gabbro" }
-        ]
-  },
-  {
         "type": "text",
-        "id": "LAYOUT_PREVIEW",
+        "id": "LAYOUT_PREVIEW_2",
         "defaultValue": ""
   },
   {
